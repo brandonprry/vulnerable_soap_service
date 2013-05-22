@@ -21,6 +21,11 @@ namespace client
 			foreach (string user in users)
 				Console.WriteLine(user);
 
+			Console.WriteLine("Selecting only blah");
+			string u = v.GetUser("blah");
+
+			Console.WriteLine(u);
+
 			Console.WriteLine("Deleteing user blah");
 			bool worked = v.DeleteUser("blah");
 

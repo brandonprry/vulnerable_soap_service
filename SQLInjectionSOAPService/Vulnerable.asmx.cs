@@ -45,6 +45,24 @@ namespace SQLInjectionSOAPService
 		}
 
 		[WebMethod]
+		public string GetUser (string username)
+		{
+NpgsqlConnection conn = new NpgsqlConnection ("Server=192.168.1.5;Port=5432;User Id=postgres;Password=secret;Database=vulnerable;");
+			conn.Open ();
+
+			NpgsqlCommand command = new NpgsqlCommand ("select * from users where username = '" + username + "';", conn);	
+			NpgsqlDataReader dr = command.ExecuteReader ();
+			dr.Read();
+		
+			conn.Close ();
+  			
+			if (dr.FieldCount > 0) 
+				return (string)dr[0] + ":" + (string)dr[1];
+			else 
+				return "User not found";
+		}
+
+		[WebMethod]
 		public bool DeleteUser (string username)
 		{
 			NpgsqlConnection conn = new NpgsqlConnection ("Server=192.168.1.5;Port=5432;User Id=postgres;Password=secret;Database=vulnerable;");
