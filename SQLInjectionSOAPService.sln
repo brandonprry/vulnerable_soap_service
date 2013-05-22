@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLInjectionSOAPService", "SQLInjectionSOAPService\SQLInjectionSOAPService.csproj", "{45B91844-CC0D-4961-AC5E-979DBC8D8442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client", "client\client.csproj", "{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45B91844-CC0D-4961-AC5E-979DBC8D8442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B91844-CC0D-4961-AC5E-979DBC8D8442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B91844-CC0D-4961-AC5E-979DBC8D8442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B91844-CC0D-4961-AC5E-979DBC8D8442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = client\client.csproj
+	EndGlobalSection
+EndGlobal

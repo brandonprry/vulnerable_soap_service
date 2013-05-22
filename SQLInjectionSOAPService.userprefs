@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="client/Main.cs">
+    <Files>
+      <File FileName="SQLInjectionSOAPService/Default.aspx" Line="1" Column="1" />
+      <File FileName="SQLInjectionSOAPService/Vulnerable.asmx.cs" Line="8" Column="11" />
+      <File FileName="client/Main.cs" Line="19" Column="26" />
+      <File FileName="client/Vulnerable.cs" Line="19" Column="29" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/home/bperry/Projects/SQLInjectionSOAPService/client/Main.cs" line="9" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
