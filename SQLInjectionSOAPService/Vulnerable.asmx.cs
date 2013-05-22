@@ -56,7 +56,7 @@ NpgsqlConnection conn = new NpgsqlConnection ("Server=192.168.1.5;Port=5432;User
 		
 			conn.Close ();
   			
-			if (dr.FieldCount > 0) 
+			if (dr.HasRows) 
 				return (string)dr[0] + ":" + (string)dr[1];
 			else 
 				return "User not found";

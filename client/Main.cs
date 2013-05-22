@@ -30,6 +30,11 @@ namespace client
 			bool worked = v.DeleteUser("blah");
 
 			Console.WriteLine("Worked? " + worked);
+
+			Console.WriteLine("Attempting to select blah again");
+			u = v.GetUser("blah");
+
+			Console.WriteLine(u);
 		}
 	}
 }

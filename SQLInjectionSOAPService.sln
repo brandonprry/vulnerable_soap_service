@@ -21,6 +21,6 @@ Global
 		{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = client\client.csproj
+		StartupItem = SQLInjectionSOAPService\SQLInjectionSOAPService.csproj
 	EndGlobalSection
 EndGlobal
