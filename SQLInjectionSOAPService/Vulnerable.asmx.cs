@@ -10,24 +10,24 @@ namespace SQLInjectionSOAPService
 	public class VulnerableService : System.Web.Services.WebService
 	{
 		[WebMethod]
-	    public string AddUser(string username, string password)
-	    {
-		    NpgsqlConnection conn = new NpgsqlConnection("Server=192.168.1.5;Port=5432;User Id=postgres;Password=secret;Database=vulnerable;");
-		    conn.Open();
+		public string AddUser (string username, string password)
+		{
+			NpgsqlConnection conn = new NpgsqlConnection ("Server=192.168.1.5;Port=5432;User Id=postgres;Password=secret;Database=vulnerable;");
+			conn.Open ();
 
 
-			NpgsqlCommand command = new NpgsqlCommand("insert into users values('" + username + "' , '" + password + "');", conn);
-			command.ExecuteNonQuery();
+			NpgsqlCommand command = new NpgsqlCommand ("insert into users values('" + username + "' , '" + password + "');", conn);
+			command.ExecuteNonQuery ();
 
-		    conn.Close();
+			conn.Close ();
   
 			return "Excellent!";
-	    }
+		}
 
 		[WebMethod]
 		public List<string> ListUsers ()
 		{		   
-			List<string> users = new List<string>();
+			List<string> users = new List<string> ();
 			NpgsqlConnection conn = new NpgsqlConnection ("Server=192.168.1.5;Port=5432;User Id=postgres;Password=secret;Database=vulnerable;");
 			conn.Open ();
 
@@ -35,26 +35,26 @@ namespace SQLInjectionSOAPService
 			NpgsqlDataReader dr = command.ExecuteReader ();
 			while (dr.Read()) {
 				for (int i = 0; i < dr.FieldCount; i+=2) {
-					users.Add((string)dr[i] + ":" + (string)dr[i+1]);
+					users.Add ((string)dr [i] + ":" + (string)dr [i + 1]);
 				}
 			}
 		
-		    conn.Close();
+			conn.Close ();
   
 			return users;
 		}
 
 		[WebMethod]
-		public bool DeleteUser(string username)
+		public bool DeleteUser (string username)
 		{
-			NpgsqlConnection conn = new NpgsqlConnection("Server=192.168.1.5;Port=5432;User Id=postgres;Password=secret;Database=vulnerable;");
-		    conn.Open();
+			NpgsqlConnection conn = new NpgsqlConnection ("Server=192.168.1.5;Port=5432;User Id=postgres;Password=secret;Database=vulnerable;");
+			conn.Open ();
 
 
-			NpgsqlCommand command = new NpgsqlCommand("delete from users where username = '" + username + "';", conn);
-			int rows = command.ExecuteNonQuery();
+			NpgsqlCommand command = new NpgsqlCommand ("delete from users where username = '" + username + "';", conn);
+			int rows = command.ExecuteNonQuery ();
 
-		    conn.Close();
+			conn.Close ();
 
 			return (rows > 0);
 		}
