@@ -90,6 +90,7 @@ namespace fuzzer
 				soap += "</soap:Body>";
 				soap += "</soap:Envelope>";
 
+				Dictionary<string, string> vulnValues = new Dictionary<string, string>();
 				for (int k = 0; k <= i; k++) {
 					string testSoap = soap.Replace ("fds" + k, "fd'sa");
 					byte[] data = System.Text.Encoding.ASCII.GetBytes (testSoap);
@@ -110,9 +111,15 @@ namespace fuzzer
 							resp = rdr.ReadToEnd ();
 
 						if (resp.Contains ("syntax error"))
+						{
+							vulnValues.Add("fds" + k, op.SoapAction);
 							Console.WriteLine ("Possible SQL injection vector in parameter: " + type.Parameters [k].Name);
+						}
 					}
 				}
+
+				foreach (var pair in vulnValues)
+					TestPostRequestWithSqlmap(_endpoint, soap, pair.Value, pair.Key);
 			}
 		}
 
@@ -229,7 +236,7 @@ namespace fuzzer
 					manager.StartTask(taskid, options);
 
 					SqlmapStatus status = manager.GetScanStatus(taskid);
-						while (status.Status != "terminated")
+					while (status.Status != "terminated")
 					{
 						System.Threading.Thread.Sleep(new TimeSpan(0,0,10));
 						status = manager.GetScanStatus(taskid);
@@ -245,8 +252,36 @@ namespace fuzzer
 			}
 		}
 
-		static void TestPostRequestWithSqlmap(string url, string data, string soapAction) {
+		static void TestPostRequestWithSqlmap(string url, string data, string soapAction, string vulnValue) {
+			Console.WriteLine("Testing url with sqlmap: " + url);
+			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8775)) {
+				using (SqlmapManager manager = new SqlmapManager(session)) {
 
+					string taskid = manager.NewTask();
+					var options = manager.GetOptions(taskid);
+					options["url"] = url;
+					options["data"] = data.Replace(vulnValue, "fdsa*").Replace("\"", "\\\"").Trim();
+
+					if (!string.IsNullOrEmpty(soapAction))
+						options["headers"] = "SOAPAction:" + soapAction;
+
+					manager.StartTask(taskid, options);
+
+					SqlmapStatus status = manager.GetScanStatus(taskid);
+					while (status.Status != "terminated")
+					{
+						System.Threading.Thread.Sleep(new TimeSpan(0,0,10));
+						status = manager.GetScanStatus(taskid);
+					}
+
+					List<SqlmapLogItem> logItems = manager.GetLog(taskid);
+
+					foreach (SqlmapLogItem item in logItems)
+						Console.WriteLine(item.Message);
+
+					manager.DeleteTask(taskid);
+				}
+			}
 		}
 	}
 }
