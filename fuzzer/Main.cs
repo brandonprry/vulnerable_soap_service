@@ -77,7 +77,6 @@ namespace fuzzer
 				soap += "<soap:Body>";
 				soap += "<" + op.Name + " xmlns=\"" + op.SoapAction.Replace (op.Name, string.Empty) + "\">";
 
-				Dictionary<string, string> parameters = new Dictionary<string, string> ();
 				int i = 0;
 				SoapType type = null; //this is cheating
 				foreach (SoapPart part in input.Parts) {
