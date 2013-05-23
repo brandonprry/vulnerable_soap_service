@@ -111,7 +111,59 @@ namespace fuzzer
 
 		static void FuzzHttpPostPort (SoapBinding binding)
 		{
-			//throw new NotImplementedException ();
+			SoapPortType portType = _wsdl.PortTypes.Where (pt => pt.Name == binding.Type.Split (':') [1]).Single ();
+			foreach (SoapBindingOperation op in binding.Operations) {
+				Console.WriteLine ("Fuzzing operation: " + op.Name);
+
+				string url = _endpoint + op.Location;
+				SoapOperation po = portType.Operations.Where (p => p.Name == op.Name).Single ();
+				SoapMessage input = _wsdl.Messages.Where (m => m.Name == po.Input.Split (':') [1]).Single ();
+
+				Dictionary<string, string> parameters = new Dictionary<string, string> ();
+				foreach (SoapPart part in input.Parts) {
+					parameters.Add(part.Name, part.Type);
+				}
+
+				string postParams = string.Empty;
+				bool first = true;
+				int i = 0;
+				foreach (var param in parameters) {
+					if (param.Value.EndsWith ("string"))
+						postParams +=  (first ? "" : "&") + param.Key + "=fds" + i++;
+					if (first)
+						first = false;
+				}
+
+				Console.WriteLine ("Fuzzing full url: " + url);
+
+				for (int k = 0; k <= i; k++) {
+					string testParams = postParams.Replace("fds" + k, "fd'sa");
+
+					HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+					req.Method = "POST";
+					req.ContentType = "application/x-www-form-urlencoded";
+
+					byte[] data = System.Text.Encoding.ASCII.GetBytes(testParams);
+
+					req.ContentLength = data.Length;
+
+					req.GetRequestStream().Write(data, 0, data.Length);
+
+					string resp = string.Empty;
+
+					try {
+						using (StreamReader rdr = new StreamReader(req.GetResponse().GetResponseStream()))
+							resp = rdr.ReadToEnd();
+					}
+					catch(WebException ex) {
+						using (StreamReader rdr = new StreamReader(ex.Response.GetResponseStream()))
+							resp = rdr.ReadToEnd();
+
+						if (resp.Contains("syntax error"))
+							Console.WriteLine("Possible SQL injection vector in parameter: " + input.Parts[k].Name);
+					}
+				}
+			}
 		}
 	}
 }
