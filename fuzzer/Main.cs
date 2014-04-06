@@ -228,7 +228,7 @@ namespace fuzzer
 		static void TestGetRequestWithSqlmap (string url)
 		{
 			Console.WriteLine("Testing url with sqlmap: " + url);
-			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8775)) {
+			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8081)) {
 				using (SqlmapManager manager = new SqlmapManager(session)) {
 					string taskid = manager.NewTask();
 					var options = manager.GetOptions(taskid);
@@ -254,16 +254,18 @@ namespace fuzzer
 
 		static void TestPostRequestWithSqlmap(string url, string data, string soapAction, string vulnValue) {
 			Console.WriteLine("Testing url with sqlmap: " + url);
-			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8775)) {
+			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8081)) {
 				using (SqlmapManager manager = new SqlmapManager(session)) {
 
 					string taskid = manager.NewTask();
 					var options = manager.GetOptions(taskid);
 					options["url"] = url;
+					//options["proxy"] = "http://127.0.0.1:8081";
 					options["data"] = data.Replace(vulnValue, "fdsa*").Replace("\"", "\\\"").Trim();
+					options["skipUrlEncode"] = "true";
 
 					if (!string.IsNullOrEmpty(soapAction))
-						options["headers"] = "SOAPAction:" + soapAction;
+						options["headers"] = "Content-Type: text/xml\\nSOAPAction: " + soapAction;
 
 					manager.StartTask(taskid, options);
 
