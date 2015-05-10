@@ -5,7 +5,6 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using sqlmapsharp;
 
 namespace fuzzer
 {
@@ -118,8 +117,8 @@ namespace fuzzer
 					}
 				}
 
-				foreach (var pair in vulnValues)
-					TestPostRequestWithSqlmap(_endpoint, soap, pair.Value, pair.Key);
+				//foreach (var pair in vulnValues)
+					//TestPostRequestWithSqlmap(_endpoint, soap, pair.Value, pair.Key);
 			}
 		}
 
@@ -172,7 +171,7 @@ namespace fuzzer
 			}
 
 			foreach (string url in vulnUrls) {
-				TestGetRequestWithSqlmap(url);
+				//TestGetRequestWithSqlmap(url);
 			}
 		}
 
@@ -225,66 +224,66 @@ namespace fuzzer
 			}
 		}
 
-		static void TestGetRequestWithSqlmap (string url)
-		{
-			Console.WriteLine("Testing url with sqlmap: " + url);
-			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8081)) {
-				using (SqlmapManager manager = new SqlmapManager(session)) {
-					string taskid = manager.NewTask();
-					var options = manager.GetOptions(taskid);
-					options["url"] = url;
-					manager.StartTask(taskid, options);
-
-					SqlmapStatus status = manager.GetScanStatus(taskid);
-					while (status.Status != "terminated")
-					{
-						System.Threading.Thread.Sleep(new TimeSpan(0,0,10));
-						status = manager.GetScanStatus(taskid);
-					}
-
-					List<SqlmapLogItem> logItems = manager.GetLog(taskid);
-
-					foreach (SqlmapLogItem item in logItems)
-						Console.WriteLine(item.Message);
-
-					manager.DeleteTask(taskid);
-				}
-			}
-		}
-
-		static void TestPostRequestWithSqlmap(string url, string data, string soapAction, string vulnValue) {
-			Console.WriteLine("Testing url with sqlmap: " + url);
-			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8081)) {
-				using (SqlmapManager manager = new SqlmapManager(session)) {
-
-					string taskid = manager.NewTask();
-					var options = manager.GetOptions(taskid);
-					options["url"] = url;
-					//options["proxy"] = "http://127.0.0.1:8081";
-					options["data"] = data.Replace(vulnValue, "fdsa*").Replace("\"", "\\\"").Trim();
-					options["skipUrlEncode"] = "true";
-
-					if (!string.IsNullOrEmpty(soapAction))
-						options["headers"] = "Content-Type: text/xml\\nSOAPAction: " + soapAction;
-
-					manager.StartTask(taskid, options);
-
-					SqlmapStatus status = manager.GetScanStatus(taskid);
-					while (status.Status != "terminated")
-					{
-						System.Threading.Thread.Sleep(new TimeSpan(0,0,10));
-						status = manager.GetScanStatus(taskid);
-					}
-
-					List<SqlmapLogItem> logItems = manager.GetLog(taskid);
-
-					foreach (SqlmapLogItem item in logItems)
-						Console.WriteLine(item.Message);
-
-					manager.DeleteTask(taskid);
-				}
-			}
-		}
+//		static void TestGetRequestWithSqlmap (string url)
+//		{
+//			Console.WriteLine("Testing url with sqlmap: " + url);
+//			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8081)) {
+//				using (SqlmapManager manager = new SqlmapManager(session)) {
+//					string taskid = manager.NewTask();
+//					var options = manager.GetOptions(taskid);
+//					options["url"] = url;
+//					manager.StartTask(taskid, options);
+//
+//					SqlmapStatus status = manager.GetScanStatus(taskid);
+//					while (status.Status != "terminated")
+//					{
+//						System.Threading.Thread.Sleep(new TimeSpan(0,0,10));
+//						status = manager.GetScanStatus(taskid);
+//					}
+//
+//					List<SqlmapLogItem> logItems = manager.GetLog(taskid);
+//
+//					foreach (SqlmapLogItem item in logItems)
+//						Console.WriteLine(item.Message);
+//
+//					manager.DeleteTask(taskid);
+//				}
+//			}
+//		}
+//
+//		static void TestPostRequestWithSqlmap(string url, string data, string soapAction, string vulnValue) {
+//			Console.WriteLine("Testing url with sqlmap: " + url);
+//			using (SqlmapSession session = new SqlmapSession("127.0.0.1", 8081)) {
+//				using (SqlmapManager manager = new SqlmapManager(session)) {
+//
+//					string taskid = manager.NewTask();
+//					var options = manager.GetOptions(taskid);
+//					options["url"] = url;
+//					//options["proxy"] = "http://127.0.0.1:8081";
+//					options["data"] = data.Replace(vulnValue, "fdsa*").Replace("\"", "\\\"").Trim();
+//					options["skipUrlEncode"] = "true";
+//
+//					if (!string.IsNullOrEmpty(soapAction))
+//						options["headers"] = "Content-Type: text/xml\\nSOAPAction: " + soapAction;
+//
+//					manager.StartTask(taskid, options);
+//
+//					SqlmapStatus status = manager.GetScanStatus(taskid);
+//					while (status.Status != "terminated")
+//					{
+//						System.Threading.Thread.Sleep(new TimeSpan(0,0,10));
+//						status = manager.GetScanStatus(taskid);
+//					}
+//
+//					List<SqlmapLogItem> logItems = manager.GetLog(taskid);
+//
+//					foreach (SqlmapLogItem item in logItems)
+//						Console.WriteLine(item.Message);
+//
+//					manager.DeleteTask(taskid);
+//				}
+//			}
+//		}
 	}
 }
 	 

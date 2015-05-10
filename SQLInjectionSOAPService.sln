@@ -7,18 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client", "client\client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fuzzer", "fuzzer\fuzzer.csproj", "{82C4275A-F34D-4B4A-B7B9-251BEB90196C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqlmap-sharp", "..\sqlmap-sharp\sqlmap-sharp\sqlmap-sharp\sqlmap-sharp.csproj", "{1F1EF74E-66C5-4CD1-ADF6-5C427274AB60}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F1EF74E-66C5-4CD1-ADF6-5C427274AB60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F1EF74E-66C5-4CD1-ADF6-5C427274AB60}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F1EF74E-66C5-4CD1-ADF6-5C427274AB60}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F1EF74E-66C5-4CD1-ADF6-5C427274AB60}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45B91844-CC0D-4961-AC5E-979DBC8D8442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{45B91844-CC0D-4961-AC5E-979DBC8D8442}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45B91844-CC0D-4961-AC5E-979DBC8D8442}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,8 +25,5 @@ Global
 		{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D4DFD11-61FE-41EC-A883-F508DB4C4D2F}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = fuzzer\fuzzer.csproj
 	EndGlobalSection
 EndGlobal

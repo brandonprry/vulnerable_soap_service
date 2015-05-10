@@ -1,4 +1,4 @@
-﻿<Properties>
+﻿<Properties StartupItem="fuzzer/fuzzer.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="client/Main.cs">
     <Files>

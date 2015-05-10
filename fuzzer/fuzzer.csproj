@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{82C4275A-F34D-4B4A-B7B9-251BEB90196C}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -50,10 +50,4 @@
     <Compile Include="SoapBindingOperation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\..\sqlmap-sharp\sqlmap-sharp\sqlmap-sharp\sqlmap-sharp.csproj">
-      <Project>{1F1EF74E-66C5-4CD1-ADF6-5C427274AB60}</Project>
-      <Name>sqlmap-sharp</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
