@@ -14,3 +14,7 @@ The fuzzer is meant to be run on the example endpoint included and no guarantees
 This is available in a virtual appliance from VulnHub.com
 
 https://www.vulnhub.com/entry/csharp-vulnsoap,135/
+
+This code is also heavily documented and detailed in my book Gray Hat C#.
+
+https://www.nostarch.com/grayhatcsharp
